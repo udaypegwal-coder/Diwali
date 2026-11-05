@@ -78,6 +78,16 @@
             box-shadow: 0 15px 30px rgba(255, 170, 0, 0.5);
             background: linear-gradient(45deg, #ffffff, #ffd700);
         }
+        /* Snapchat Special Button Style */
+        .snap-btn {
+            background: linear-gradient(45deg, #fffc00, #f1e700) !important;
+            color: #000 !important;
+            box-shadow: 0 10px 25px rgba(255, 252, 0, 0.3) !important;
+        }
+        .snap-btn:hover {
+            background: linear-gradient(45deg, #ffffff, #fffc00) !important;
+            box-shadow: 0 15px 30px rgba(255, 252, 0, 0.5) !important;
+        }
         .diya-icon {
             font-size: 3.5rem;
             margin-bottom: 15px;
@@ -113,7 +123,7 @@
             { icon: "🪔", title: "Roshni Aur Dua", text: "दीयों की रोशनी और पटाखों की गूंज के बीच... दुआ है कि आपकी लाइफ का हर एक पल इस दिवाली की तरह चमकता रहे।", btn: "Next ✨" },
             { icon: "💖", title: "Sweet Smile", text: "मिठाइयों से भी ज़्यादा मीठी मुस्कान रहे आपकी, और इस साल आपको वो सब मिले जो आप दिल से चाहती हैं।", btn: "One More Click ⚡" },
             { icon: "😉", title: "A Small Request?", text: "वैसे... सुना है दिवाली पर चुप रहने से लक्ष्मी जी नाराज़ हो जाती हैं! तो इस दिवाली के बाद थोड़ा ज़्यादा बातें करना शुरू करें क्या?", btn: "Finally... 🎇" },
-            { icon: "🎉", title: "Happy Diwali! ✨", text: "Wishing You A Very Happy & Healthy Diwali! हमेशा ऐसे ही हंसती रहना।", btn: "Celebrate 🪔", isLast: true }
+            { icon: "🎉", title: "Happy Diwali! ✨", text: "Wishing You A Very Happy & Healthy Diwali! हमेशा ऐसे ही हंसती रहना।", btn: "Send a Snap 💬", isLast: true }
         ];
 
         let currentStep = 0;
@@ -122,14 +132,11 @@
             const card = document.getElementById('wizard');
             const iconEl = document.getElementById('icon');
             
-            // If it's the very first step, make the diya light up with fire effect before moving
             if (steps[currentStep].isFirst) {
                 iconEl.classList.add('lit');
-                iconEl.innerText = "🔥🪔"; // Diya turns lit!
+                iconEl.innerText = "🔥🪔";
                 document.getElementById('text').innerText = "वाह! दीया जल गया... 😍 चलिए अब आगे बढ़ते हैं।";
                 document.getElementById('nextBtn').innerText = "आगे देखें ✨";
-                
-                // Temporary remove the isFirst flag so next click moves forward
                 steps[currentStep].isFirst = false;
                 return;
             }
@@ -143,13 +150,21 @@
                     iconEl.innerText = steps[currentStep].icon;
                     document.getElementById('title').innerText = steps[currentStep].title;
                     document.getElementById('text').innerText = steps[currentStep].text;
-                    document.getElementById('nextBtn').innerText = steps[currentStep].btn;
+                    
+                    const btn = document.getElementById('nextBtn');
+                    btn.innerText = steps[currentStep].btn;
+                    
+                    // Style the last button for Snapchat
+                    if(steps[currentStep].isLast) {
+                        btn.classList.add('snap-btn');
+                    }
                     
                     card.classList.add('active');
                     
                     if(steps[currentStep].isLast) {
                         document.getElementById('nextBtn').onclick = () => {
-                            alert("🎇 Happy Diwali! Have a beautiful day ahead! ❤️");
+                            // Replace 'udaypegwal-coder' with your actual snapchat username if you want it to point directly to your profile link
+                            window.location.href = "https://snapchat.com"; 
                         };
                     }
                 }, 400);
