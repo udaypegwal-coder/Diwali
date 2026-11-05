@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Diwali मोटी ✨</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; box-sizing: border-box; background: radial-gradient(circle, #2a085c 0%, #0f0226 100%); color: #fff; font-family: 'Fredoka', 'Outfit', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .container { perspective: 1000px; width: 90%; max-width: 400px; }
+        .card { background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(15px); padding: 40px 30px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.25); text-align: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; transform: translateY(30px); position: relative; }
+        .card.active { opacity: 1; transform: translateY(0); }
+        h2 { color: #ffd700; font-size: 2rem; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6); font-weight: 600; }
+        p { font-size: 1.25rem; line-height: 1.7; min-height: 90px; color: #f0e6ff; font-weight: 400; }
+        button { background: linear-gradient(45deg, #ffd700, #ffaa00); color: #0f0226; border: none; padding: 14px 35px; font-size: 1.1rem; font-weight: 600; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 25px rgba(255, 170, 0, 0.3); transition: all 0.3s ease; margin-top: 25px; font-family: 'Fredoka', sans-serif; }
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 170, 0, 0.5); background: linear-gradient(45deg, #ffffff, #ffd700); }
+        .diya-icon { font-size: 3.5rem; margin-bottom: 15px; transition: all 0.5s ease; filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
+        .diya-icon.lit { animation: float 3s ease-in-out infinite; filter: drop-shadow(0 0 20px #ffd700); font-size: 4rem; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card active" id="wizard">
+            <div class="diya-icon" id="icon">🪔</div>
+            <h2 id="title">ओए मोटी! 🐷</h2>
+            <p id="text">चल ज़्यादा भाव मत खा, सबसे पहले इस दीये को जला... तेरे भाई ने सिर्फ तेरे लिए एक सीक्रेट मैसेज कोड किया है! ✨</p>
+            <button id="nextBtn" onclick="nextStep()">दीया जलाओ 🪔</button>
+        </div>
+    </div>
+    <script>
+        const steps = [
+            { icon: "🪔", title: "ओए मोटी! 🐷", text: "चल ज़्यादा भाव मत खा, सबसे पहले इस दीये को जला... तेरे भाई ने सिर्फ तेरे लिए एक सीक्रेट मैसेज कोड किया है! ✨", btn: "दीया जलाओ 🪔", isFirst: true },
+            { icon: "💻", title: "Bhai Ka Talent 😎", text: "सोचा हर बार की तरह बोरिंग 'Happy Diwali' भेजने के बजाय इस बार अपनी धासू कोडिंग स्किल्स से तुझे हैरान करूँ!", btn: "आगे बढ़ो ➡️" },
+            { icon: "🪔", title: "Sweet Wishes ✨", text: "दुआ है कि इस दिवाली माँ लक्ष्मी की कृपा से तेरी बुद्धि थोड़ी बढ़ जाए, और तू मुझसे कम लड़ा करे! 😂", btn: "Next ✨" },
+            { icon: "📦", title: "Diwali Alert! ⚠️", text: "वैसे, दिवाली पर रिश्तेदारों से मिली हुई सोन पपड़ी के सारे डिब्बे अकेले मत चटका जाना, वरना सच में गोल-मटोल हो जाएगी! 😜", btn: "Finally... ⚡" },
+            { icon: "🎉", title: "Happy Diwali! 🎇", text: "Wishing You A Very Happy Diwali! मेरी सबसे प्यारी, सबसे नौटी और इकलौती 'मोटी' बहना! हमेशा ऐसे ही हँसती रह। ❤️", btn: "Happy Diwali 🎉", isLast: true }
+        ];
+        let currentStep = 0;
+        function nextStep() {
+            const card = document.getElementById('wizard');
+            const iconEl = document.getElementById('icon');
+            if (steps[currentStep].isFirst) {
+                iconEl.classList.add('lit'); iconEl.innerText = "🔥🪔";
+                document.getElementById('text').innerText = "वाह! दीया जल गया। अब आगे का सीक्रेट पढ़ो...";
+                document.getElementById('nextBtn').innerText = "आगे देखें ✨";
+                steps[currentStep].isFirst = false; return;
+            }
+            if (currentStep < steps.length - 1) {
+                currentStep++; card.classList.remove('active');
+                setTimeout(() => {
+                    iconEl.classList.add('lit'); iconEl.innerText = steps[currentStep].icon;
+                    document.getElementById('title').innerText = steps[currentStep].title;
+                    document.getElementById('text').innerText = steps[currentStep].text;
+                    document.getElementById('nextBtn').innerText = steps[currentStep].btn;
+                    card.classList.add('active');
+                    if(steps[currentStep].isLast) {
+                        document.getElementById('nextBtn').onclick = () => { alert("🎉 Happy Diwali Motu! 🎇❤️ हमेशा खुश रह और सोन पपड़ी कम खा!"); };
+                    }
+                }, 400);
+            }
+        }
+    </script>
+</body>
+</html>
